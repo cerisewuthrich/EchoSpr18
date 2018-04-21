@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Luong
+ * @author Luong Dinh
  */
 public class EmployeeFrame extends javax.swing.JFrame {
 
