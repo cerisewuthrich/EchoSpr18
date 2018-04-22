@@ -10,9 +10,10 @@ import dao.EmployeeDAO;
 import dao.DBConnection;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 /**
  *
- * @author Luong Dinh
+ * @author Luong
  */
 public class EmployeeFrame extends javax.swing.JFrame {
 
@@ -38,7 +39,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
         }
         
         model = new EmployeeTableModel(employee);
-        jTable1.setModel(model); 
+        EmployeeTable.setModel(model); 
     }
 
     /**
@@ -51,7 +52,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        EmployeeTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -64,7 +65,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        EmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -90,11 +91,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        EmployeeTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EmployeeTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(EmployeeTable);
+        if (EmployeeTable.getColumnModel().getColumnCount() > 0) {
+            EmployeeTable.getColumnModel().getColumn(0).setResizable(false);
+            EmployeeTable.getColumnModel().getColumn(1).setResizable(false);
+            EmployeeTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jButton1.setText("Add");
@@ -158,14 +164,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addGap(0, 244, Short.MAX_VALUE))
+                .addGap(0, 242, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,6 +179,17 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void first_nameActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+    }                                          
+
+    
+    
+    private void EmployeeTableMouseClicked(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+       int selectedRowIndex = EmployeeTable.getSelectedRow();
+       int selectedRowModel = EmployeeTable.convertRowIndexToModel(selectedRowIndex);
+      
+       first_name.setText(model.getValueAt(selectedRowModel, 1).toString());
+       last_name.setText(model.getValueAt(selectedRowModel, 2).toString());     
     }                                          
 
     /**
@@ -212,6 +229,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    private javax.swing.JTable EmployeeTable;
     private javax.swing.JTextField first_name;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -221,7 +239,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField last_name;
     // End of variables declaration                   
 }
