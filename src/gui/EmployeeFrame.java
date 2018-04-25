@@ -300,7 +300,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
 
-        try {
+        /*try {
           Employee newEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
           employeeDAO.addEmployee(newEmployee);
           JOptionPane.showMessageDialog(this,"Your employee has been added!");
@@ -310,7 +310,24 @@ public class EmployeeFrame extends javax.swing.JFrame {
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }*/
+        Integer eID;
+        String fname, lname;
+        eID = Integer.parseInt(EIDTextField.getText());
+        fname = first_name.getText();
+        lname = last_name.getText();
+        
+        Employee newEmployee = new Employee (eID,fname,lname);
+        
+        try{
+        employeeDAO.addEmployee(newEmployee);
+        employee = employeeDAO.getAllEmployees();
         }
+        catch(Exception ex){
+            System.out.println("Problem with updating employee" + ex);
+        }
+        model = new EmployeeTableModel(employee);
+        EmployeeTable.setModel(model);
  //GEN-LAST:event_ButtonAddOrdersActionPerformed	    
   
     }//GEN-LAST:event_AddButtonActionPerformed
@@ -321,16 +338,33 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
-         try {
-          Employee updateEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
-          employeeDAO.updateEmployee(updateEmployee);
+         /*try {
+          Employee newEmployees = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
+          employeeDAO.updateEmployee(newEmployees);
           JOptionPane.showMessageDialog(this,"Your employee has been updated!");
           EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
           EmployeeTable.setModel(model);
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }*/
+        Integer eID;
+        String fname, lname;
+        eID = Integer.parseInt(EIDTextField.getText());
+        fname = first_name.getText();
+        lname = last_name.getText();
+        
+        Employee newEmployee = new Employee (eID,fname,lname);
+        
+        try{
+        employeeDAO.updateEmployee(newEmployee);
+        employee = employeeDAO.getAllEmployees();
         }
+        catch(Exception ex){
+            System.out.println("Problem with updating employee" + ex);
+        }
+        model = new EmployeeTableModel(employee);
+        EmployeeTable.setModel(model);
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
