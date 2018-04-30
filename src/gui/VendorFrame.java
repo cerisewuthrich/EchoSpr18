@@ -23,6 +23,7 @@ public class VendorFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         vendorDAO = new VendorDAO(this.conn);
+        VendorTable.setAutoCreateRowSorter(true);
         try{
             //Get a connection to the DB
             
@@ -80,7 +81,7 @@ public class VendorFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "VID", "name", "contact", "address", "city", "state", "zip"
+                "VID", "Name", "Contact", "Address", "City", "State", "Zip"
             }
         ));
         VendorTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,17 +99,17 @@ public class VendorFrame extends javax.swing.JFrame {
             }
         });
 
-        name_Label.setText("name:");
+        name_Label.setText("Name:");
 
-        contact_Label.setText("contact:");
+        contact_Label.setText("Contact:");
 
-        address_Label.setText("address:");
+        address_Label.setText("Address:");
 
-        city_Label.setText("city:");
+        city_Label.setText("City:");
 
-        state_Label.setText("state:");
+        state_Label.setText("State:");
 
-        zip_Label.setText("zip:");
+        zip_Label.setText("Zip:");
 
         name_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,32 +148,12 @@ public class VendorFrame extends javax.swing.JFrame {
         });
 
         Create_Button.setText("Create");
-        Create_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Create_ButtonActionPerformed(evt);
-            }
-        });
 
         Update_Button.setText("Update");
-        Update_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Update_ButtonActionPerformed(evt);
-            }
-        });
 
         Delete_Button.setText("Delete");
-        Delete_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Delete_ButtonActionPerformed(evt);
-            }
-        });
 
         Reset_Button.setText("Reset");
-        Reset_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Reset_ButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +161,6 @@ public class VendorFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Create_Button)
@@ -208,14 +188,18 @@ public class VendorFrame extends javax.swing.JFrame {
                             .addComponent(VID_TextField)
                             .addComponent(zip_TextField))
                         .addGap(18, 18, 18)
-                        .addComponent(Reset_Button)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Reset_Button)
+                        .addGap(0, 620, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addGap(147, 147, 147)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Create_Button)
                     .addComponent(Update_Button)
@@ -248,8 +232,7 @@ public class VendorFrame extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(zip_Label)
-                    .addComponent(zip_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 28, Short.MAX_VALUE))
+                    .addComponent(zip_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
