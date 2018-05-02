@@ -152,7 +152,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Repair Order ID", "Date Received", "Date Shipped", "Carrier Delivery Type", "Outbound CID", "EID", "Inbound CID"
+                "Repair Order ID", "Date Received", "Date Shipped", "Carrier Delivery Type", "Outbound CID", "Received by EID", "Inbound CID"
             }
         ) {
             Class[] types = new Class [] {
@@ -198,74 +198,28 @@ public class RepairOrderFrame extends javax.swing.JFrame {
 
         workingEID4Label.setText("EID 4 repairing:");
 
-        dateShippedTextField.setText("Date Repair Order Shipped");
         dateShippedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateShippedTextFieldActionPerformed(evt);
             }
         });
 
-        dateRecdTextField.setText("Date Repair Order Received");
-
         ROAddButton.setText("Add");
-        ROAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ROAddButtonMouseClicked(evt);
-            }
-        });
 
         ROUpdateButton.setText("Update");
-        ROUpdateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ROUpdateButtonActionPerformed(evt);
-            }
-        });
 
-        RORemoveButton.setText("Remove");
-        RORemoveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RORemoveButtonActionPerformed(evt);
-            }
-        });
+        RORemoveButton.setText("Delete");
 
         ROResetButton.setText("Reset");
-        ROResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ROResetButtonMouseClicked(evt);
+
+        receivingEIDComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receivingEIDComboBoxActionPerformed(evt);
             }
         });
 
-        receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
+        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Ground", "Blue", "Brown", "Red" }));
 
-        shipIn_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
-
-        shipOut_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
-
-        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty", "Ground", "Blue", "Brown", "Red" }));
-
-        SN1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN1FormattedTextField.setText("Part 1 Name");
-
-        SN2FormattedTextField.setText("Part 2 Name");
-
-        SN3FormattedTextField.setText("Part 3 Name");
-
-        SN4FormattedTextField.setText("Part 4 Name");
         SN4FormattedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SN4FormattedTextFieldActionPerformed(evt);
@@ -273,8 +227,6 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         });
 
         RIDLabel.setText("RID:");
-
-        RIDTextField.setText("Order Repair ID");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -434,35 +386,48 @@ public class RepairOrderFrame extends javax.swing.JFrame {
 
 //////    shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
 
-    private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRepairOrdersMouseClicked
+    private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {                                               
   //FIRST:event_TableRepairOrdersMouseClicked
         // TODO add your handling code here:
         int rowIndex = TableRepairOrders.getSelectedRow();
         int rowModel = TableRepairOrders.convertRowIndexToModel(rowIndex);
 
         RIDTextField.setText(TableRepairOrders.getValueAt(rowIndex, 0).toString());
-        dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
-        dateShippedTextField.setText(TableRepairOrders.getValueAt(rowIndex, 2).toString());
-        shipTypeComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 3).toString());
-        if (TableRepairOrders.getValueAt(rowIndex, 4).equals(0)) {
-            shipOut_CIDComboBox.setSelectedItem("empty");
+	dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
+        Object tableVal = TableRepairOrders.getValueAt(rowIndex, 2);
+        if (tableVal == null) {
+            dateShippedTextField.setText("empty");
         }
         else {
-            shipOut_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 4).toString());
+            dateShippedTextField.setText(tableVal.toString());
         }
-        if (TableRepairOrders.getValueAt(rowIndex, 5).equals(0)) {
-            receivingEIDComboBox.setSelectedItem("empty");
-        }
-        else {
-            receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
-        }
-        if (TableRepairOrders.getValueAt(rowIndex, 6).equals(0)) {
-            shipIn_CIDComboBox.setSelectedItem("empty");
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 3);
+        if (tableVal == null) {
+            shipTypeComboBox.setSelectedItem("empty");
         }
         else {
-            shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
+            String temp = 
+                Character.toString(Character.toUpperCase(tableVal.toString().substring(0).charAt(0))) 
+                + tableVal.toString().substring(1, tableVal.toString().length());
+            shipTypeComboBox.setSelectedItem(temp);
         }
-    }//GEN-LAST:event_TableRepairOrdersMouseClicked
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 4);
+        if (Integer.valueOf(tableVal.toString()) == null) {
+            shipOut_CIDComboBox.setSelectedItem("0");
+        }
+        else {
+            shipOut_CIDComboBox.setSelectedItem(tableVal.toString());
+        }
+        receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 6);
+        if (Integer.parseInt(tableVal.toString()) == 0) {
+            shipIn_CIDComboBox.setSelectedItem("0");
+        }
+        else {
+            shipIn_CIDComboBox.setSelectedItem(tableVal.toString());
+        }
+        ROAddButton.setEnabled(false);
+    }
 
     private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
         // TODO add your handling code here:
@@ -615,6 +580,10 @@ public class RepairOrderFrame extends javax.swing.JFrame {
        }
        }
     }//GEN-LAST:event_ROUpdateButtonActionPerformed
+
+    private void receivingEIDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receivingEIDComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_receivingEIDComboBoxActionPerformed
     
     private void reset(){
        RIDTextField.setText("");

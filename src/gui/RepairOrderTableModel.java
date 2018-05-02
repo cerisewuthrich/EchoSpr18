@@ -20,10 +20,10 @@ public class RepairOrderTableModel extends AbstractTableModel{
     private static final int dateShipped_COL = 2;
     private static final int shipOutType_COL = 3;
     private static final int shipOut_CID_COL = 4;
-    private static final int shipIn_CID_COL = 6;
-    private static final int EID_COL = 5;  
-    private String[] columnNames = {"RID", "dateRecd", "dateShipped",
-        "shipOutType", "shipOut_CID", "EID", "shipIn_CID"};
+    private static final int EID_COL = 5; 
+    private static final int shipIn_CID_COL = 6; 
+    private String[] columnNames = {"Repair Order ID", "Date Received",
+        "Date Shipped", "Carrier Delivery Type", "Outbound CID", "Received by EID", "Inbound CID"};
     private List<RepairOrder> repairOrder;
     
     public RepairOrderTableModel(List<RepairOrder> rpo){
