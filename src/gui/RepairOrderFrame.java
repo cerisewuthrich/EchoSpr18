@@ -46,6 +46,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
      */
     public RepairOrderFrame(DBConnection myConn) {
         initComponents();
+        shipTypeComboBox.addItem("");
         shipOut_CIDComboBox.addItem("");
         shipIn_CIDComboBox.addItem("");
         receivingEIDComboBox.addItem("");
@@ -404,18 +405,19 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         RIDTextField.setText(TableRepairOrders.getValueAt(rowIndex, 0).toString());
 	dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
         Object tableVal = TableRepairOrders.getValueAt(rowIndex, 2);
-		// comment
+	// check if dateShipped is empty
         if (tableVal == null) {
-            dateShippedTextField.setText("empty");
+            dateShippedTextField.setText("");
         }
         else {
             dateShippedTextField.setText(tableVal.toString());
         }
         tableVal = TableRepairOrders.getValueAt(rowIndex, 3);
-        // comment
-		if (tableVal == null) {
-            shipTypeComboBox.setSelectedItem("empty");
+        // check if shipType is empty
+	if (tableVal == null) {
+            shipTypeComboBox.setSelectedItem("");
         }
+        // else change the value of the entry to have an uppercase first letter, may not be necessary
         else {
             String temp = 
                 Character.toString(Character.toUpperCase(tableVal.toString().substring(0).charAt(0))) 
@@ -423,18 +425,18 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             shipTypeComboBox.setSelectedItem(temp);
         }
         tableVal = TableRepairOrders.getValueAt(rowIndex, 4);
-        // comment
-		if (Integer.valueOf(tableVal.toString()) == null) {
-            shipOut_CIDComboBox.setSelectedItem("0");
+        // check if shipOut_CID is empty
+	if (Integer.valueOf(tableVal.toString()) == null) {
+            shipOut_CIDComboBox.setSelectedItem("");
         }
         else {
             shipOut_CIDComboBox.setSelectedItem(tableVal.toString());
         }
         receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
         tableVal = TableRepairOrders.getValueAt(rowIndex, 6);
-        // comment
+        // Check if shipIn_CID is empty
 		if (Integer.parseInt(tableVal.toString()) == 0) {
-            shipIn_CIDComboBox.setSelectedItem("0");
+            shipIn_CIDComboBox.setSelectedItem("");
         }
         else {
             shipIn_CIDComboBox.setSelectedItem(tableVal.toString());
@@ -514,16 +516,11 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                   return;
               }
               // Assign dateShipRegex if not null, then check value for date format
-<<<<<<< HEAD
-              if(!(dateShippedTextField.getText().toString() == "")){
-                   dateShipRegex = dateShippedTextField.getText().toString();
-                   if(!(dateShipRegex.matches("\\d{4}-\\d{2}-\\d{2}"))){
-=======
+
               if(!(dateShippedTextField.getText().toString().isEmpty())){
                    dateShipRegex = dateShippedTextField.getText().toString();
                    if(!(dateShipRegex.matches("\\d{4}-\\d{2}-\\d{2}")) && 
                         !(dateShipRegex == "")){
->>>>>>> 4946cb0e94b50a847a21269312b8df09dc04e0d0
                        JOptionPane.showMessageDialog(this,"Please enter dateShipped in the format:"
                                                     +"\n\"YYYY-MM-DD\"");
                             return;   
@@ -569,12 +566,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     }                                        
     }
     }
-<<<<<<< HEAD
-    private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-=======
     
-    private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ROUpdateButtonActionPerformed
->>>>>>> 4946cb0e94b50a847a21269312b8df09dc04e0d0
+    private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
         if(
             receivingEIDComboBox.getSelectedItem().toString() == "empty" ||    
             RIDTextField.getText().toString().isEmpty() ||
@@ -640,16 +633,11 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this,"Repair Order was not updated!");
                 }
     }
-        
-<<<<<<< HEAD
     }                                              
 
     private void receivingEIDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receivingEIDComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_receivingEIDComboBoxActionPerformed
-=======
-    }//GEN-LAST:event_ROUpdateButtonActionPerformed
->>>>>>> 4946cb0e94b50a847a21269312b8df09dc04e0d0
     
     private void reset(){
        RIDTextField.setText("");
